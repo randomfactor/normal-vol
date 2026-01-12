@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# /home/randall/.local/bin/uv run python normalize_audio.py /media/randall/FW/playlists/_ALL/ /media/randall/FW/playlists/_ALL/normalized
+/home/randall/.local/bin/uv run python normalize_audio.py /media/randall/FW/playlists/_ALL/ /media/randall/FW/playlists/_ALL/normalized
 
-# /home/randall/.local/bin/uv run python normalize_audio.py /media/randall/FW/playlists/ALTO/ /media/randall/FW/playlists/ALTO/normalized
+/home/randall/.local/bin/uv run python normalize_audio.py /media/randall/FW/playlists/ALTO/ /media/randall/FW/playlists/ALTO/normalized
 
 /home/randall/.local/bin/uv run python normalize_audio.py /media/randall/FW/playlists/BASS/ /media/randall/FW/playlists/BASS/normalized
 

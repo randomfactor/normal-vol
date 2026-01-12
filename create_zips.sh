@@ -1,23 +1,38 @@
 #!/bin/bash
 
-rm "/media/randall/FW/playlists/2026-01-10 Sunrise - All Parts.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Alto.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Bass.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Mezzo.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Soprano.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Tenor.zip" \
-    "/media/randall/FW/playlists/2026-01-10 Sunrise - Solo.zip"
+# Define the base path to avoid typos
+BASE="/media/randall/FW/playlists"
 
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - All Parts.zip" "/media/randall/FW/playlists/_ALL/normalized/"*
+# 1. Clear out old archives (as you were doing)
+rm "$BASE/2026-01 - All Parts.zip" \
+   "$BASE/2026-01 - Alto.zip" \
+   "$BASE/2026-01 - Bass.zip" \
+   "$BASE/2026-01 - Mezzo.zip" \
+   "$BASE/2026-01 - Soprano.zip" \
+   "$BASE/2026-01 - Tenor.zip" \
+   "$BASE/2026-01 - Solo.zip"
 
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Alto.zip" "/media/randall/FW/playlists/ALTO/normalized/"*
+# 2. Define a function to Zip safely
+# This solves the "-j" problem by entering the directory before zipping
+zip_flat() {
+    local zip_name="$1"
+    local source_dir="$2"
 
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Bass.zip" "/media/randall/FW/playlists/BASS/normalized/"*
+    echo "Creating $zip_name..."
+    
+    # Run in a subshell (parentheses) so the 'cd' doesn't affect the main script
+    # -tzip: Force standard zip format
+    # -mx=9: Max compression (optional, but good)
+    (cd "$source_dir" && 7z a -tzip -mx=9 "$BASE/$zip_name" *)
+}
 
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Mezzo.zip" "/media/randall/FW/playlists/MEZZ/normalized/"*
+# 3. Create the archives
+zip_flat "2026-01 - All Parts.zip" "$BASE/_ALL/normalized"
+zip_flat "2026-01 - Alto.zip"      "$BASE/ALTO/normalized"
+zip_flat "2026-01 - Bass.zip"      "$BASE/BASS/normalized"
+zip_flat "2026-01 - Mezzo.zip"     "$BASE/MEZZ/normalized"
+zip_flat "2026-01 - Soprano.zip"   "$BASE/SOPR/normalized"
+zip_flat "2026-01 - Tenor.zip"     "$BASE/TENR/normalized"
+zip_flat "2026-01 - Solo.zip"      "$BASE/SOLO/normalized"
 
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Soprano.zip" "/media/randall/FW/playlists/SOPR/normalized/"*
-
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Tenor.zip" "/media/randall/FW/playlists/TENR/normalized/"*
-
-zip -j "/media/randall/FW/playlists/2026-01-10 Sunrise - Solo.zip" "/media/randall/FW/playlists/SOLO/normalized/"*
+echo "All zips created successfully."
