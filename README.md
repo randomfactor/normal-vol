@@ -2,6 +2,9 @@
 
 A Python utility to normalize audio files (MP3 and WAV) to EBU R128 standards.
 
+> [!WARNING]
+> The scripts in this project (specifically the helper shell scripts like `run_normalizations.sh`, `create_zips.sh`, etc.) contain **absolute file paths** specific to the original environment. You **must** edit these paths to match your system's directory structure before running them.
+
 ## Features
 
 - **EBU R128 Normalization**: 
