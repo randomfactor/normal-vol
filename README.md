@@ -14,11 +14,20 @@ A Python utility to normalize audio files (MP3 and WAV) to EBU R128 standards.
 - **Format Support**: Accepts `.mp3` and `.wav` inputs.
 - **Output**: Always produces normalized `.mp3` files (192kbps).
 
+> [!WARNING]
+> One of the scripts (`create_zips.sh`) dependencies on `7z` (p7zip).
+> 
+> **Install on Ubuntu:**
+> ```bash
+> sudo apt update && sudo apt install p7zip-full
+> ```
+
 ## Requirements
 
 - [FFmpeg](https://ffmpeg.org/) (must be on your system PATH)
 - Python 3.10+
 - [uv](https://github.com/astral-sh/uv) (recommended for dependency management)
+- `p7zip-full` (for `create_zips.sh`)
 
 ## Installation
 
