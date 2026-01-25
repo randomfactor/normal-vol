@@ -3,7 +3,7 @@ import os
 import sys
 from ffmpeg_normalize import FFmpegNormalize
 
-def normalize_audio(input_dir, output_dir=None):
+def normalize_audio(input_dir, output_dir=None, sample_rate=44100):
     """
     Normalizes MP3 and WAV files in the input_dir.
     Output files will always be MP3.
@@ -46,7 +46,7 @@ def normalize_audio(input_dir, output_dir=None):
         target_level=-16.0,
         true_peak=-1.5,
         loudness_range_target=11.0,
-        sample_rate=44100,
+        sample_rate=sample_rate,
         audio_codec='libmp3lame',
         extra_output_options=['-b:a', '192k'],
         progress=True
@@ -82,6 +82,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Normalize MP3 and WAV audio files using EBU R128 (I=-16). Output is MP3.")
     parser.add_argument("input_path", help="Path to the directory containing input audio files.")
     parser.add_argument("output_path", nargs="?", help="Optional path to the output directory. Defaults to 'normalized' subdirectory.")
+    parser.add_argument("--sample_rate", type=int, choices=[44100, 48000], default=44100, help="Output sample rate (44100 or 48000). Default: 44100")
 
     args = parser.parse_args()
-    normalize_audio(args.input_path, args.output_path)
+    normalize_audio(args.input_path, args.output_path, args.sample_rate)
