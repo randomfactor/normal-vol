@@ -6,6 +6,7 @@ import os
 
 def run_ffmpeg_command(cmd):
     """Run an ffmpeg command and return stdout/stderr."""
+    print("Running:", " ".join(cmd))
     try:
         # print("Running:", " ".join(cmd)) # Debug
         result = subprocess.run(
@@ -206,6 +207,8 @@ def measure_loudness_i(audio_file):
     print(f"Warning: Could not measure loudness for {audio_file}", file=sys.stderr)
     return None
 
+import tempfile
+
 def main():
     inputs, volumes, output_file = parse_arguments()
     
@@ -227,7 +230,9 @@ def main():
             else:
                 print("  Failed to measure loudness, keeping original volume.")
 
-    temp_mix_file = "temp_mix_intermediate.wav"
+    # Create a unique temporary file in the OS standard temp directory
+    fd, temp_mix_file = tempfile.mkstemp(suffix=".wav")
+    os.close(fd) # Close file descriptor immediately so ffmpeg can use the path
     
     try:
         # 1. Main Mix
@@ -286,7 +291,7 @@ def main():
     finally:
         if os.path.exists(temp_mix_file):
             # os.remove(temp_mix_file) 
-            pass # Keep for debug? No, standard is remove.
+            # pass # Keep for debug? No, standard is remove.
             os.remove(temp_mix_file)
 
 if __name__ == "__main__":

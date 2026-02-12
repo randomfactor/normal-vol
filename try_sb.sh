@@ -27,7 +27,12 @@ for input_file in test/wav_in/*.{wav,mp3}; do
   
   # Add to mix list
   if [ -f "$output_file" ]; then
-      mixed_inputs="$mixed_inputs -i \"$output_file\""
+      mixed_inputs="$mixed_inputs -i \"$output_file\" -v 1.0"
+  fi
+  
+  # Check for Bass track to determine song title
+  if [[ "$filename_no_ext" == *"_Bass"* ]]; then
+      song_title="${filename_no_ext//_Bass/}"
   fi
   
 done
@@ -37,7 +42,12 @@ echo "Batch processing complete."
 
 # Prepare output directory
 mkdir -p "test/songtrack"
-output_mix="test/songtrack/You Were On My Mind.mp3"
+
+if [ -n "$song_title" ]; then
+    output_mix="test/songtrack/${song_title}.mp3"
+else
+    output_mix="test/songtrack/output.mp3"
+fi
 
 echo "Mixing tracks to $output_mix ..."
 

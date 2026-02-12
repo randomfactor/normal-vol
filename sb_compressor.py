@@ -7,6 +7,7 @@ import os
 
 def run_ffmpeg_command(cmd):
     """Run an ffmpeg command and return stdout/stderr."""
+    print("Running:", " ".join(cmd))
     try:
         result = subprocess.run(
             cmd,

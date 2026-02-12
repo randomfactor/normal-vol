@@ -15,6 +15,9 @@ normalized/
 # Test artifacts
 test_audio/
 test_wav/
+test/wav_in/
+test/stage1/
+test/songtrack/
 
 # Zipped archives
 *.zip
