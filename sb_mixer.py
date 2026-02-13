@@ -223,10 +223,13 @@ def main():
                 gain_db = target_lufs - current_i
                 print(f"  Current Loudness: {current_i} LUFS")
                 print(f"  Target: {target_lufs} LUFS")
-                print(f"  Applying Gain: {gain_db:.2f} dB")
                 
-                # Update volume for this track
-                volumes[idx] = f"{gain_db:.2f}dB"
+                if gain_db < 0:
+                    print(f"  Applying Gain: {gain_db:.2f} dB")
+                    # Update volume for this track
+                    volumes[idx] = f"{gain_db:.2f}dB"
+                else:
+                    print(f"  Calculated Gain is positive ({gain_db:.2f} dB). Keeping original volume.")
             else:
                 print("  Failed to measure loudness, keeping original volume.")
 
