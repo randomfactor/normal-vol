@@ -17,8 +17,9 @@
 # ~/.local/bin/uv run python normalize_audio.py --sample_rate 48000 ~/Music/soundbites/YWD/tracks/ ~/Music/soundbites/YWD/tracks/normalized
 
 # create list of 4-letter voice part names
-voice_parts=("ALTO" "BARI" "BASS" "MEZZ" "SOPR" "TENR" "SOLO")
+voice_parts=("_ALL" "ALTO" "BARI" "BASS" "MEZZ" "SOPR" "TENR" "SOLO")
+root="/media/randall/4004-4C2E"
 
 for part in "${voice_parts[@]}"; do
-    /home/randall/.local/bin/uv run python normalize_audio.py "/media/randall/FW/playlists/$part/" "/media/randall/FW/playlists/$part/normalized"
+    /home/randall/.local/bin/uv run python normalize_audio.py "$root/playlists/$part/" "$root/playlists/$part/normalized"
 done

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the base path to avoid typos
-BASE="/media/randall/FW/playlists"
+BASE="/media/randall/4004-4C2E/playlists"
 SEASON='SB-2026-S1'
 
 # 1. Clear out old archives (as you were doing)
